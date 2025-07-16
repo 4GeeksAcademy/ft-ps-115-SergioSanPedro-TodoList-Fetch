@@ -1,11 +1,46 @@
-/* 
+body {
+    background-image: url('https://previews.123rf.com/images/sanek13744/sanek137441712/sanek13744171200457/92330417-to-do-list-seamless-pattern-background-business-flat-vector-illustration-checklist-task-list.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.titulo {
+    font-weight: 800;
+    color: #ec4509;
+    font-size: 4.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 5px 10px rgba(14, 8, 8, 0.803);
+}
 
-*/
+.btn {
+    color: red;
+    border: none;
+    opacity: 0;
+
+}
+
+.btn:hover {
+    color: red;
+    opacity: 1;
+}
+
+
+.tarea:hover .btn {
+    opacity: 1;
+
+}
+
+.input:focus {
+    outline: none;
+    border-color: #ff3700;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.tarea:hover {
+    background-color: #f8f9fa;
+    border-color: #d0d0d0;
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(230, 3, 3, 0.541);
+}
