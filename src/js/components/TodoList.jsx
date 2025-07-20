@@ -5,8 +5,9 @@ const URLApi = 'https://playground.4geeks.com/todo/users/sergio90';
 
 export const TodoList = () => {
 
-	const [input, setInput] = useState('')
+	const [input, setInput] = useState('');
 	const [taskList, setTaskList] = useState([]);
+	
 
 	const handleKeyUp = (e) => {
 		if (e.key === 'Enter') {
@@ -14,16 +15,17 @@ export const TodoList = () => {
 		}
 	};
 
-	const deleteTarea = async (id) => {
+	const getTask = async () => {
+		const response = await fetch(URLApi);
 
-		const response = await fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
-			method: 'DELETE'
-		});
+		if (!response.ok) {
+			console.log('Crea usurario atontao')
+			createUser()
+		}
+		const data = await response.json()
+		setTaskList(data.todos);
 
-		setTaskList(taskList.filter(task => task.id !== id));
-
-	};
-
+	}
 
 	const createTask = async () => {
 		const response = await fetch('https://playground.4geeks.com/todo/todos/sergio90', {
@@ -40,29 +42,39 @@ export const TodoList = () => {
 		getTask();
 		setInput('');
 
-	}
-
-
-	const getTask = async () => {
-		const response = await fetch(URLApi);
-
-		if (!response.ok) {
-			console.log('Crea usurario atontao')
-			createUser()
-		}
-		const data = await response.json()
-		setTaskList(data.todos);
-
-	}
-
-	const createUser = async () => {
-		await fetch(URLApi, { method: 'POST' })
-	}
+	};
 
 	useEffect(() => {
 		getTask()
 	}, [])
 
+
+	const deleteTarea = async (id) => {
+
+		await fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
+			method: 'DELETE'
+		});
+
+		setTaskList(taskList.filter(task => task.id !== id));
+
+	};
+
+	const deleteFullTask = async () => {
+		
+		taskList.map(task => 
+        fetch(`https://playground.4geeks.com/todo/todos/${task.id}`, {
+            method: 'DELETE'
+        })
+    );
+
+		setTaskList([])
+
+	}
+
+
+	const createUser = async () => {
+		await fetch(URLApi, { method: 'POST' })
+	}
 
 
 	return (
@@ -84,14 +96,14 @@ export const TodoList = () => {
 
 					<span className="text-white text-center my-2">
 						Te {taskList.length === 1 ? 'queda' : 'quedan'} {taskList.length} {taskList.length === 1 ? 'tarea' : 'tareas'} aún por completar. {taskList.length > 1 ? 'Espabila' : ''}
-
 					</span>
+					<button onClick={deleteFullTask} className="btn btn-danger text-dartk my-2">Borrar Tareas</button>
 
 					{
 						taskList.map((task) => (
 							<div className="d-flex justify-content-between bg-white align-items-center mt-1 border border-2 tarea rounded-2 fw-bold">
 								<span key={task.id}>{task.label}</span>
-								<button onClick={() => deleteTarea(task.id)} className="btn">❌</button>
+								<button onClick={() => deleteTarea(task.id)} className="deletebtn">❌</button>
 							</div>
 
 						))

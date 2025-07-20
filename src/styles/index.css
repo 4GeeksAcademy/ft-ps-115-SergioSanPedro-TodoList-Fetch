@@ -14,14 +14,14 @@ body {
     text-shadow: 0 5px 10px rgba(14, 8, 8, 0.803);
 }
 
-.btn {
+.deletebtn {
     color: red;
     border: none;
     opacity: 0;
 
 }
 
-.btn:hover {
+.deletebtn:hover {
     color: red;
     opacity: 1;
 }
